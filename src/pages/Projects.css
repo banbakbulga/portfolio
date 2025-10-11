@@ -842,3 +842,8 @@
     justify-content: center;
   }
 }
+
+/* GitHub Pages 아이콘 스타일 */
+.github-icon {
+  color: #24292e;
+}

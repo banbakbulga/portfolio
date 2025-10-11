@@ -15,8 +15,19 @@
 .career-content h2 {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   color: var(--text-primary);
+}
+
+.timeline-label {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  opacity: 0.7;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .career-timeline {
