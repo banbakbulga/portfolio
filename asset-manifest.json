@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.38b65d07.css",
-    "main.js": "/portfolio/static/js/main.b1bb23ac.js",
+    "main.css": "/portfolio/static/css/main.e6fbea46.css",
+    "main.js": "/portfolio/static/js/main.9c637acb.js",
     "static/js/453.ed455b0c.chunk.js": "/portfolio/static/js/453.ed455b0c.chunk.js",
     "static/media/양준혁 증사 배경제거.png": "/portfolio/static/media/양준혁 증사 배경제거.b0ba513c964f543a938d.png",
     "static/media/chatbot1.png": "/portfolio/static/media/chatbot1.e371aad15e231e3be057.png",
+    "static/media/portfolio.png": "/portfolio/static/media/portfolio.21a1cad8291751715b48.png",
     "static/media/bgp2.png": "/portfolio/static/media/bgp2.f1a48142373872a393ef.png",
     "static/media/미모티콘.png": "/portfolio/static/media/미모티콘.99a3d9ffd9c31e636a0b.png",
     "static/media/radio2.png": "/portfolio/static/media/radio2.bffc3dc78eb18f25f3f4.png",
@@ -19,12 +20,12 @@
     "static/media/css.jpg": "/portfolio/static/media/css.7ac0f75b6bba368d7ef5.jpg",
     "static/media/html.jpg": "/portfolio/static/media/html.0a74d6a2049cba82e625.jpg",
     "index.html": "/portfolio/index.html",
-    "main.38b65d07.css.map": "/portfolio/static/css/main.38b65d07.css.map",
-    "main.b1bb23ac.js.map": "/portfolio/static/js/main.b1bb23ac.js.map",
+    "main.e6fbea46.css.map": "/portfolio/static/css/main.e6fbea46.css.map",
+    "main.9c637acb.js.map": "/portfolio/static/js/main.9c637acb.js.map",
     "453.ed455b0c.chunk.js.map": "/portfolio/static/js/453.ed455b0c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.38b65d07.css",
-    "static/js/main.b1bb23ac.js"
+    "static/css/main.e6fbea46.css",
+    "static/js/main.9c637acb.js"
   ]
 }
