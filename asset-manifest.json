@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.e6fbea46.css",
-    "main.js": "/portfolio/static/js/main.9c637acb.js",
+    "main.css": "/portfolio/static/css/main.c10e0bec.css",
+    "main.js": "/portfolio/static/js/main.61da4e0a.js",
     "static/js/453.ed455b0c.chunk.js": "/portfolio/static/js/453.ed455b0c.chunk.js",
     "static/media/양준혁 증사 배경제거.png": "/portfolio/static/media/양준혁 증사 배경제거.b0ba513c964f543a938d.png",
     "static/media/chatbot1.png": "/portfolio/static/media/chatbot1.e371aad15e231e3be057.png",
@@ -14,18 +14,15 @@
     "static/media/bgp1.png": "/portfolio/static/media/bgp1.c8b056c1c6117d209a41.png",
     "static/media/bgp3.png": "/portfolio/static/media/bgp3.51c7cc7855325fe7929b.png",
     "static/media/radio4.png": "/portfolio/static/media/radio4.cf0f34376f34e15c3562.png",
-    "static/media/react.jpg": "/portfolio/static/media/react.d08edc6f4f75f851cd2f.jpg",
     "static/media/kakao.png": "/portfolio/static/media/kakao.dd308fe78aecd45d4ac9.png",
     "static/media/heukbeak.png": "/portfolio/static/media/heukbeak.a92e8b99130329c4d801.png",
-    "static/media/css.jpg": "/portfolio/static/media/css.7ac0f75b6bba368d7ef5.jpg",
-    "static/media/html.jpg": "/portfolio/static/media/html.0a74d6a2049cba82e625.jpg",
     "index.html": "/portfolio/index.html",
-    "main.e6fbea46.css.map": "/portfolio/static/css/main.e6fbea46.css.map",
-    "main.9c637acb.js.map": "/portfolio/static/js/main.9c637acb.js.map",
+    "main.c10e0bec.css.map": "/portfolio/static/css/main.c10e0bec.css.map",
+    "main.61da4e0a.js.map": "/portfolio/static/js/main.61da4e0a.js.map",
     "453.ed455b0c.chunk.js.map": "/portfolio/static/js/453.ed455b0c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6fbea46.css",
-    "static/js/main.9c637acb.js"
+    "static/css/main.c10e0bec.css",
+    "static/js/main.61da4e0a.js"
   ]
 }
