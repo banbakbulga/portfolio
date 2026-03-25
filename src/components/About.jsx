@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaPython, FaGithub } from 'react-icons/fa';
-import { SiFastapi, SiMongodb, SiOpenai } from 'react-icons/si';
+import { FaReact, FaPython, FaGithub, FaNodeJs, FaDocker } from 'react-icons/fa';
+import { SiFastapi, SiMongodb, SiOpenai, SiPostgresql, SiElectron, SiFlutter } from 'react-icons/si';
 import mimoticonImage from '../img/미모티콘.png';
 
 const About = () => {
     const [hoveredSkill, setHoveredSkill] = useState(null);
 
     const skillList = [
-        { name: "HTML5", icon: FaHtml5, color: "#e34f26" },
-        { name: "CSS3", icon: FaCss3Alt, color: "#1572b6" },
-        { name: "JavaScript", icon: FaJs, color: "#f7df1e" },
         { name: "React", icon: FaReact, color: "#61dafb" },
+        { name: "Node.js", icon: FaNodeJs, color: "#339933" },
+        { name: "Electron", icon: SiElectron, color: "#47848F" },
+        { name: "Flutter", icon: SiFlutter, color: "#02569B" },
         { name: "Python", icon: FaPython, color: "#3776ab" },
         { name: "FastAPI", icon: SiFastapi, color: "#009688" },
+        { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
         { name: "MongoDB", icon: SiMongodb, color: "#47a248" },
+        { name: "Docker", icon: FaDocker, color: "#2496ED" },
         { name: "OpenAI", icon: SiOpenai, color: "#412991" },
         { name: "GitHub", icon: FaGithub, color: "#ffffff" }
     ];

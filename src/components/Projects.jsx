@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaJava, FaPython, FaDatabase, FaNetworkWired } from 'react-icons/fa';
-import { SiFastapi, SiMongodb, SiOpenai, SiSpring, SiMysql, SiRedis, SiElasticsearch, SiTailwindcss, SiFlask } from 'react-icons/si';
+import { SiFastapi, SiMongodb, SiOpenai, SiSpring, SiMysql, SiRedis, SiElasticsearch, SiTailwindcss, SiFlask, SiPostgresql, SiVite } from 'react-icons/si';
 
 import kakaoImage from '../img/kakao.png';
 import heukbeakImage from '../img/heukbeak.png';
@@ -14,6 +14,7 @@ import radio3Image from '../img/radio3.png';
 import radio4Image from '../img/radio4.png';
 import chatbot1Image from '../img/chatbot1.png';
 import portfolioImage from '../img/portfolio.png';
+import lolpagoImage from '../img/롤파고.png';
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
@@ -86,15 +87,25 @@ const Projects = () => {
             github: "https://github.com/banbakbulga/portfolio",
             category: "frontend",
             featured: true
+        },
+        {
+            id: 7,
+            title: "롤파고(LOLPAGO)",
+            description: "Riot API 데이터를 가공하여 자체 분석 API와 인터랙티브 UI로 연결한 게임 데이터 분석 플랫폼입니다.",
+            image: lolpagoImage,
+            tech: ["React", "Vite", "Node.js", "PostgreSQL", "JavaScript"],
+            link: "https://lolpago.com/",
+            github: "",
+            category: "fullstack",
+            featured: true
         }
     ];
 
+    const visibleCards = 3;
+    const maxSlide = Math.max(0, projects.length - visibleCards);
+
     const nextSlide = () => {
-        const maxSlides = Math.max(0, projects.length - 1); // Logic adjusted for single column scroll or responsive
-        // Assuming card width ~380px + gap 32px ~ 412px.
-        // If container is 1400px, we fit ~3 cards.
-        // Simple logic for now: increment by 1
-        setCurrentSlide(prev => Math.min(prev + 1, maxSlides));
+        setCurrentSlide(prev => Math.min(prev + 1, maxSlide));
     };
 
     const prevSlide = () => {
@@ -122,6 +133,8 @@ const Projects = () => {
             case "SQLite": return <FaDatabase className="text-[#003B57] text-2xl" />;
             case "MCP": return <FaNetworkWired className="text-[#61DAFB] text-2xl" />;
             case "GitHub Pages": return <FaGithub className="text-white text-2xl" />;
+            case "PostgreSQL": return <SiPostgresql className="text-[#4169E1] text-2xl" />;
+            case "Vite": return <SiVite className="text-[#646CFF] text-2xl" />;
             default: return <span className="text-white text-sm">{tech}</span>;
         }
     };
@@ -140,15 +153,13 @@ const Projects = () => {
                     <p className="text-text-sub text-lg max-w-[600px] mx-auto leading-relaxed">다양한 기술 스택을 활용하여 제작한 프로젝트들을 소개합니다.</p>
                 </motion.div>
 
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                     <motion.div
                         className="flex gap-8 px-4"
-                        layout
-                        style={{ transform: `translateX(-${currentSlide * 400}px)` }}
-                        animate={{ x: -currentSlide * 400 }}
+                        animate={{ x: -currentSlide * (380 + 32) }}
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                     >
-                        {projects.map((project, index) => (
+                        {[...projects].reverse().map((project, index) => (
                             <motion.div
                                 key={project.id}
                                 className="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:bg-white/[0.08] transition-all duration-300 relative flex-shrink-0 flex flex-col w-[380px] min-w-[380px]"
@@ -165,17 +176,19 @@ const Projects = () => {
                                         className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 gap-4">
-                                        <motion.a
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-12 h-12 bg-white/10 backdrop-blur-md border border-border-main rounded-full flex items-center justify-center text-secondary text-xl transition-colors hover:bg-secondary hover:text-bg-main hover:border-secondary"
-                                            whileHover={{ scale: 1.1, rotate: 5 }}
-                                            whileTap={{ scale: 0.9 }}
-                                        >
-                                            <FaGithub />
-                                        </motion.a>
-                                        {(project.id === 1 || project.id === 4 || project.id === 5 || project.id === 6) && project.link && (
+                                        {project.github && (
+                                            <motion.a
+                                                href={project.github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-12 h-12 bg-white/10 backdrop-blur-md border border-border-main rounded-full flex items-center justify-center text-secondary text-xl transition-colors hover:bg-secondary hover:text-bg-main hover:border-secondary"
+                                                whileHover={{ scale: 1.1, rotate: 5 }}
+                                                whileTap={{ scale: 0.9 }}
+                                            >
+                                                <FaGithub />
+                                            </motion.a>
+                                        )}
+                                        {(project.id === 1 || project.id === 4 || project.id === 5 || project.id === 6 || project.id === 7) && project.link && (
                                             <motion.a
                                                 href={project.link}
                                                 target="_blank"
@@ -223,7 +236,7 @@ const Projects = () => {
                         <button
                             className="w-12 h-12 bg-white/5 backdrop-blur-md border border-border-main rounded-full text-secondary flex items-center justify-center text-lg cursor-pointer transition-all duration-300 hover:bg-secondary hover:text-bg-main hover:border-secondary disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:text-secondary"
                             onClick={nextSlide}
-                            disabled={currentSlide >= Math.max(0, projects.length - 1)}
+                            disabled={currentSlide >= maxSlide}
                         >
                             ›
                         </button>
@@ -546,6 +559,42 @@ src/
                             </>
                         )}
 
+                        {project.id === 7 && (
+                            <>
+                                <div className="mb-6"><SectionTitle>📌 프로젝트 개요</SectionTitle>
+                                    <List><li><Strong>프로젝트명:</Strong> 롤파고(LOLPAGO)</li><li><Strong>개발 기간:</Strong> 2025 - 현재</li><li><Strong>참여 인원:</Strong> 개인 프로젝트</li><li><Strong>기술 스택:</Strong> React (Vite), Node.js, PostgreSQL, JavaScript</li><li><Strong>형태:</Strong> Riot API 기반 게임 데이터 분석 웹 서비스</li></List></div>
+                                <div className="mb-6"><SectionTitle>✨ 주요 기능 및 특징</SectionTitle>
+                                    <List><li>🎮 <Strong>자체 API 설계:</Strong> Riot API 원본 데이터를 서비스 목적에 맞게 가공하여 20개 이상의 자체 엔드포인트 설계</li><li>📊 <Strong>데이터 분석 파이프라인:</Strong> KDA, 승률, 챔피언별 플레이 패턴, 라인별 성향 등 심층 분석</li><li>🗺️ <Strong>챔피언 이동 히트맵:</Strong> 타임라인 데이터를 기반으로 경기 흐름을 직관적으로 시각화</li><li>🎯 <Strong>증강 칼바람 페이지 상세화:</Strong> 기존 통계 사이트보다 더 깊은 분석 데이터 제공</li><li>🎨 <Strong>전적 검색 시 UI 톤 변화:</Strong> 사용자 행동에 따른 시각적 피드백으로 인터랙티브 경험 제공</li><li>🕹️ <Strong>미니게임 요소:</Strong> 데이터 서비스에 재미 요소를 더한 차별화된 사용자 경험</li></List></div>
+                                <div className="mb-6"><SectionTitle>🧩 사용 기술 및 구조</SectionTitle><div className="text-primary-dark leading-relaxed"><TechDescP><Strong>React (Vite)</Strong> 기반 프론트엔드에서 사용자 입력 처리, 인터랙티브 데이터 시각화, Framer Motion 기반 애니메이션 UX를 구현했습니다. 클라이언트는 표현(UI)에 집중하는 설계를 적용했습니다.</TechDescP><TechDescP><Strong>Node.js</Strong> 백엔드에서 Riot API 호출 및 데이터 수집, 가공 및 통계 계산, 자체 API 엔드포인트 제공을 담당합니다. Riot API 의존성을 서버에서 통제하고, 데이터 분석 로직을 서버 중심으로 처리하는 구조를 설계했습니다.</TechDescP><TechDescP><Strong>PostgreSQL</Strong>을 통해 소환사, 매치, 타임라인, 통계 데이터를 체계적으로 저장합니다. 단순 저장소가 아닌 데이터 가공 및 분석을 위한 핵심 계층으로 활용하며, 조건 기반 조회 최적화와 데이터 정규화를 적용했습니다.</TechDescP><TechDescP><Strong>Riot API</Strong> 연동 레이어를 통해 소환사, 매치, 타임라인 등 원천 데이터를 수집하고, 불필요한 데이터 제거 및 구조 통일을 통해 성능 최적화와 유지보수성을 확보했습니다.</TechDescP></div></div>
+                                <div className="mb-6"><SectionTitle>🏗️ 시스템 아키텍처</SectionTitle><SectionCode>{`
+[ React (Vite) Client ]
+        ↓
+[ Node.js Server ]
+        ↓
+[ Riot API Integration Layer ]
+        ↓
+[ Data Processing Layer ]
+        ↓
+[ PostgreSQL ]
+        ↓
+[ Custom API Endpoints (20+) ]
+        ↓
+[ Visualization UI ]
+`}</SectionCode></div>
+                                <div className="mb-6"><SectionTitle>🔗 주요 API 엔드포인트</SectionTitle><SectionCode>{`
+GET /statistics/top-champions?region=KR&line=UTILITY
+GET /matches?summonerId=719&season=2026&queueId=420&page=2
+GET /matches/:matchId
+GET /matches/:matchId/timeline
+GET /matchstats/most-champions
+`}</SectionCode><List><li><Strong>설계 특징:</Strong> Riot API → 서버 → 자체 API 구조로, 프론트는 가공된 데이터만 사용</li><li><Strong>확장성:</Strong> 응답 구조를 서비스 기준으로 재설계하여 페이지네이션 및 필터링 지원</li><li><Strong>클라이언트 단순화:</Strong> API 확장성 확보 및 데이터 재사용 가능 구조</li></List></div>
+                                <div className="mb-6"><SectionTitle>🧠 트러블슈팅</SectionTitle><List><li><Strong>문제:</Strong> Riot API 응답 데이터가 서비스 목적에 맞지 않는 구조<br /><Strong>해결:</Strong> 서비스 목적에 맞는 데이터 정제·필터링 파이프라인 구축 및 구조 통일</li><li><Strong>문제:</Strong> API 응답 실패, 데이터 누락, 타임라인 부족 등 다양한 예외 상황<br /><Strong>해결:</Strong> null-safe 처리, 기본값 설정, 에러 응답 통일, 데이터 검증 후 처리</li><li><Strong>문제:</Strong> 대량 매치 데이터의 조회 성능 저하<br /><Strong>해결:</Strong> PostgreSQL 조건 기반 조회 최적화 및 필요한 필드 중심 구조화</li></List></div>
+                                <div className="mb-6"><SectionTitle>🪄 느낀 점</SectionTitle><List><li><Strong>데이터 설계의 중요성:</Strong> 외부 API 데이터를 그대로 사용하지 않고 서비스에 맞게 재구성하는 경험</li><li><Strong>서버 중심 설계:</Strong> 클라이언트-서버 역할 분리와 API 의존성 관리의 핵심을 체득</li><li><Strong>UX 차별화:</Strong> 단순 데이터 나열이 아닌 인터랙티브 경험 설계의 가치</li></List></div>
+                                <div className="mb-6"><SectionTitle>🔍 개선 및 다음 목표</SectionTitle><List><li>실시간 데이터 분석 및 알림 시스템 구현</li><li>더 다양한 분석 지표 및 시각화 차트 추가</li><li>사용자 맞춤형 통계 대시보드 기능</li></List></div>
+                                <div className="mb-6"><SectionTitle>💾 프로젝트 정보</SectionTitle><List><li><Strong>개발 상태:</Strong> 운영 중</li><li><Strong>기여도:</Strong> 전체 시스템 설계 및 개발 (프론트엔드, 백엔드, DB, API)</li><li><Strong>특징:</Strong> 외부 API 데이터를 PostgreSQL과 자체 API로 재구성하여 분석과 UX까지 연결한 데이터 플랫폼</li><li><Strong>배포:</Strong> <a href="https://lolpago.com/" target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline">https://lolpago.com/</a></li></List></div>
+                            </>
+                        )}
+
                         <div className="flex gap-4 mt-4">
                             {project.github && (
                                 <a
@@ -557,7 +606,7 @@ src/
                                     <FaGithub /> GitHub
                                 </a>
                             )}
-                            {(project.id === 1 || project.id === 4 || project.id === 5 || project.id === 6) && project.link && (
+                            {(project.id === 1 || project.id === 4 || project.id === 5 || project.id === 6 || project.id === 7) && project.link && (
                                 <a
                                     href={project.link}
                                     target="_blank"
