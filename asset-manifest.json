@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.c10e0bec.css",
-    "main.js": "/portfolio/static/js/main.61da4e0a.js",
+    "main.css": "/portfolio/static/css/main.9ef3fa56.css",
+    "main.js": "/portfolio/static/js/main.0130f7a7.js",
     "static/js/453.ed455b0c.chunk.js": "/portfolio/static/js/453.ed455b0c.chunk.js",
+    "static/media/롤파고.png": "/portfolio/static/media/롤파고.a4962e3b7769f864520a.png",
     "static/media/양준혁 증사 배경제거.png": "/portfolio/static/media/양준혁 증사 배경제거.b0ba513c964f543a938d.png",
     "static/media/chatbot1.png": "/portfolio/static/media/chatbot1.e371aad15e231e3be057.png",
     "static/media/portfolio.png": "/portfolio/static/media/portfolio.21a1cad8291751715b48.png",
@@ -17,12 +18,12 @@
     "static/media/kakao.png": "/portfolio/static/media/kakao.dd308fe78aecd45d4ac9.png",
     "static/media/heukbeak.png": "/portfolio/static/media/heukbeak.a92e8b99130329c4d801.png",
     "index.html": "/portfolio/index.html",
-    "main.c10e0bec.css.map": "/portfolio/static/css/main.c10e0bec.css.map",
-    "main.61da4e0a.js.map": "/portfolio/static/js/main.61da4e0a.js.map",
+    "main.9ef3fa56.css.map": "/portfolio/static/css/main.9ef3fa56.css.map",
+    "main.0130f7a7.js.map": "/portfolio/static/js/main.0130f7a7.js.map",
     "453.ed455b0c.chunk.js.map": "/portfolio/static/js/453.ed455b0c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c10e0bec.css",
-    "static/js/main.61da4e0a.js"
+    "static/css/main.9ef3fa56.css",
+    "static/js/main.0130f7a7.js"
   ]
 }
