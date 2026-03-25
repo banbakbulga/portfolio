@@ -48,6 +48,10 @@ const generatePositions = () => {
     const positions = [];
     const minDist = 80; // minimum distance between icon centers
 
+    const hasCollision = (newX, newY) => {
+        return positions.some(p => Math.hypot(p.x - newX, p.y - newY) < minDist);
+    };
+
     for (let i = 0; i < techIcons.length; i++) {
         let x, y, attempts = 0;
         do {
@@ -58,7 +62,7 @@ const generatePositions = () => {
             attempts++;
         } while (
             attempts < 200 &&
-            positions.some(p => Math.hypot(p.x - x, p.y - y) < minDist)
+            hasCollision(x, y)
         );
         positions.push({
             x,
