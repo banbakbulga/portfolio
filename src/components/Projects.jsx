@@ -91,12 +91,12 @@ const Projects = () => {
         {
             id: 7,
             title: "롤파고(LOLPAGO)",
-            description: "Riot API 데이터를 가공하여 자체 분석 API와 인터랙티브 UI로 연결한 게임 데이터 분석 플랫폼입니다.",
+            description: "Riot API 기반의 게임 데이터 분석 플랫폼에서 각종 통계를 시각화하는 인터랙티브 프론트엔드 UI를 구현했습니다.",
             image: lolpagoImage,
-            tech: ["React", "Vite", "Node.js", "PostgreSQL", "JavaScript"],
+            tech: ["React", "Vite", "JavaScript"],
             link: "https://lolpago.com/",
             github: "",
-            category: "fullstack",
+            category: "frontend",
             featured: true
         }
     ];
@@ -140,84 +140,97 @@ const Projects = () => {
     };
 
     return (
-        <section id="projects" className="py-24 bg-gradient-to-br from-bg-warm to-bg-main min-h-screen flex items-center">
-            <div className="w-full max-w-[1400px] mx-auto px-5">
+        <section id="projects" className="py-28 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.01)_0%,_transparent_60%)] pointer-events-none"></div>
+
+            <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
                 <motion.div
-                    className="text-center mb-12"
-                    initial={{ opacity: 0, y: 30 }}
+                    className="mb-16"
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true, margin: "-100px" }}
                 >
-                    <h2 className="text-4xl font-extrabold mb-4 bg-gradient-to-br from-primary to-primary-dark bg-clip-text text-transparent inline-block">Project</h2>
-                    <p className="text-text-sub text-lg max-w-[600px] mx-auto leading-relaxed">다양한 기술 스택을 활용하여 제작한 프로젝트들을 소개합니다.</p>
+                    <span className="text-text-light text-xs font-mono tracking-widest uppercase mb-3 block">Work</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-text-main tracking-tight">
+                        Selected Projects
+                    </h2>
+                    <div className="w-8 h-px bg-text-light mt-4 mb-6"></div>
+                    <p className="text-text-sub text-sm max-w-[500px] leading-relaxed">
+                        기획부터 디자인, 개발까지 주도적으로 참여한 웹 애플리케이션 프로젝트들입니다.
+                    </p>
                 </motion.div>
 
                 <div className="relative overflow-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                     <motion.div
-                        className="flex gap-8 px-4"
-                        animate={{ x: -currentSlide * (380 + 32) }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        className="flex gap-5 py-4"
+                        animate={{ x: -currentSlide * (340 + 20) }}
+                        transition={{ type: "spring", stiffness: 250, damping: 30 }}
                     >
                         {[...projects].reverse().map((project, index) => (
                             <motion.div
                                 key={project.id}
-                                className="bg-white/5 backdrop-blur-md rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:bg-white/[0.08] transition-all duration-300 relative flex-shrink-0 flex flex-col w-[380px] min-w-[380px]"
-                                layout
-                                initial={{ opacity: 0, y: 50 }}
+                                className="bg-bg-sub/50 border border-white/5 rounded-xl overflow-hidden transition-all duration-300 hover:border-white/15 relative flex-shrink-0 flex flex-col w-[340px] min-w-[340px] h-[480px] group"
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                                transition={{ duration: 0.5, delay: index * 0.08 }}
                                 viewport={{ once: true }}
                             >
-                                <div className="h-[180px] bg-gradient-to-br from-bg-sub to-bg-third flex items-center justify-center relative overflow-hidden group">
+                                {/* Image */}
+                                <div className="h-[180px] bg-bg-main relative overflow-hidden">
                                     <img
                                         src={project.image}
                                         alt={project.title}
-                                        className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                                        className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                                     />
-                                    <div className="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 gap-4">
+                                    {/* Hover Links */}
+                                    <div className="absolute inset-0 bg-bg-main/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 gap-3 z-10">
                                         {project.github && (
-                                            <motion.a
+                                            <a
                                                 href={project.github}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="w-12 h-12 bg-white/10 backdrop-blur-md border border-border-main rounded-full flex items-center justify-center text-secondary text-xl transition-colors hover:bg-secondary hover:text-bg-main hover:border-secondary"
-                                                whileHover={{ scale: 1.1, rotate: 5 }}
-                                                whileTap={{ scale: 0.9 }}
+                                                className="w-10 h-10 bg-white/10 border border-white/10 rounded-lg flex items-center justify-center text-white text-base transition-all duration-200 hover:bg-white/20"
                                             >
                                                 <FaGithub />
-                                            </motion.a>
+                                            </a>
                                         )}
                                         {(project.id === 1 || project.id === 4 || project.id === 5 || project.id === 6 || project.id === 7) && project.link && (
-                                            <motion.a
+                                            <a
                                                 href={project.link}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="w-12 h-12 bg-white/10 backdrop-blur-md border border-border-main rounded-full flex items-center justify-center text-secondary text-xl transition-colors hover:bg-secondary hover:text-bg-main hover:border-secondary"
-                                                whileHover={{ scale: 1.1, rotate: -5 }}
-                                                whileTap={{ scale: 0.9 }}
+                                                className="w-10 h-10 bg-white/10 border border-white/10 rounded-lg flex items-center justify-center text-white text-base transition-all duration-200 hover:bg-white/20"
                                             >
                                                 <FaExternalLinkAlt />
-                                            </motion.a>
+                                            </a>
                                         )}
                                     </div>
                                 </div>
-                                <div className="p-6 pt-2 flex-grow flex flex-col">
-                                    <h3 className="text-2xl font-bold text-text-main mb-3">{project.title}</h3>
-                                    <p className="text-text-sub text-base leading-relaxed mb-4">{project.description}</p>
-                                    <div className="flex flex-wrap gap-2 mb-4">
+                                
+                                {/* Content */}
+                                <div className="p-5 flex-grow flex flex-col">
+                                    <h3 className="text-base font-semibold text-text-main mb-2 tracking-tight">{project.title}</h3>
+                                    <p className="text-text-sub text-[13px] leading-relaxed mb-4 line-clamp-2">{project.description}</p>
+                                    
+                                    {/* Tech Icons */}
+                                    <div className="flex flex-wrap gap-2 mb-5">
                                         {project.tech.map((tech, techIndex) => (
-                                            <div key={techIndex} className="w-[60px] h-[60px] flex items-center justify-center bg-white/5 backdrop-blur-md border border-border-main rounded-2xl hover:bg-white/10 hover:border-secondary hover:shadow-[0_8px_25px_rgba(100,255,218,0.2)] transition-all duration-300">
-                                                {getTechIcon(tech)}
+                                            <div key={techIndex} className="w-8 h-8 flex items-center justify-center bg-white/[0.03] border border-white/5 rounded-md text-lg">
+                                                <div className="opacity-60 group-hover:opacity-80 transition-opacity duration-200">
+                                                    {getTechIcon(tech)}
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
-                                    <div className="mt-auto text-center">
+                                    
+                                    {/* Button */}
+                                    <div className="mt-auto">
                                         <button
-                                            className="bg-gradient-to-br from-secondary to-accent text-bg-main border-none py-3 px-8 rounded-full text-base font-semibold cursor-pointer transition-all duration-300 hover:shadow-[0_5px_15px_rgba(100,255,218,0.3)] hover:brightness-110"
+                                            className="w-full py-2.5 bg-white/[0.03] border border-white/10 rounded-lg text-text-sub font-medium text-[13px] tracking-wide transition-all duration-200 hover:bg-white/[0.08] hover:text-text-main hover:border-white/15"
                                             onClick={() => setSelectedProject(project)}
                                         >
-                                            자세히 보기
+                                            View Details
                                         </button>
                                     </div>
                                 </div>
@@ -225,16 +238,17 @@ const Projects = () => {
                         ))}
                     </motion.div>
 
-                    <div className="flex justify-center gap-4 mt-8">
+                    {/* Navigation */}
+                    <div className="flex justify-center gap-3 mt-6">
                         <button
-                            className="w-12 h-12 bg-white/5 backdrop-blur-md border border-border-main rounded-full text-secondary flex items-center justify-center text-lg cursor-pointer transition-all duration-300 hover:bg-secondary hover:text-bg-main hover:border-secondary disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:text-secondary"
+                            className="w-10 h-10 bg-white/5 border border-white/10 rounded-lg text-text-sub flex items-center justify-center text-lg cursor-pointer transition-all duration-200 hover:bg-white/10 hover:text-text-main disabled:opacity-20 disabled:cursor-not-allowed"
                             onClick={prevSlide}
                             disabled={currentSlide === 0}
                         >
                             ‹
                         </button>
                         <button
-                            className="w-12 h-12 bg-white/5 backdrop-blur-md border border-border-main rounded-full text-secondary flex items-center justify-center text-lg cursor-pointer transition-all duration-300 hover:bg-secondary hover:text-bg-main hover:border-secondary disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:text-secondary"
+                            className="w-10 h-10 bg-white/5 border border-white/10 rounded-lg text-text-sub flex items-center justify-center text-lg cursor-pointer transition-all duration-200 hover:bg-white/10 hover:text-text-main disabled:opacity-20 disabled:cursor-not-allowed"
                             onClick={nextSlide}
                             disabled={currentSlide >= maxSlide}
                         >
@@ -263,7 +277,7 @@ const Projects = () => {
                     exit={{ opacity: 0 }}
                     onClick={() => setSelectedImage(null)}
                 >
-                    <div className="absolute top-5 right-8 text-white text-4xl font-bold cursor-pointer transition-colors hover:text-secondary" onClick={(e) => {
+                    <div className="absolute top-5 right-8 text-white text-4xl font-bold cursor-pointer transition-colors hover:text-text-sub" onClick={(e) => {
                         e.stopPropagation();
                         setSelectedImage(null);
                     }}>
@@ -287,23 +301,23 @@ const Projects = () => {
 const ProjectModal = ({ project, onClose, setSelectedImage }) => {
     // Helper components for modal sections
     const SectionTitle = ({ children }) => (
-        <h3 className="text-white text-xl mb-4 border-b-2 border-secondary pb-2">{children}</h3>
+        <h3 className="text-text-main text-lg font-semibold mb-3 pb-2 border-b border-white/10">{children}</h3>
     );
     const List = ({ children }) => (
-        <ul className="text-primary-dark leading-relaxed pl-6 list-disc [&>li]:mb-3">{children}</ul>
+        <ul className="text-text-sub text-sm leading-relaxed pl-5 list-disc [&>li]:mb-2">{children}</ul>
     );
-    const Strong = ({ children }) => <strong className="text-secondary">{children}</strong>;
-    const Code = ({ children }) => <code className="bg-[rgba(100,255,218,0.1)] text-secondary px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>;
-    const TechDescP = ({ children }) => <p className="mb-6 text-base text-primary-dark">{children}</p>;
+    const Strong = ({ children }) => <strong className="text-text-main font-medium">{children}</strong>;
+    const Code = ({ children }) => <code className="bg-white/5 text-text-main px-1.5 py-0.5 rounded text-xs font-mono">{children}</code>;
+    const TechDescP = ({ children }) => <p className="mb-4 text-sm text-text-sub leading-relaxed">{children}</p>;
     const SectionCode = ({ children }) => (
-        <pre className="bg-black/30 border border-border-main rounded-lg p-6 overflow-x-auto my-4 text-white font-mono text-sm leading-relaxed whitespace-pre">{children}</pre>
+        <pre className="bg-bg-main/50 border border-white/5 rounded-lg p-4 overflow-x-auto my-3 text-text-sub font-mono text-xs leading-relaxed whitespace-pre">{children}</pre>
     );
     const Gallery = ({ images }) => (
         <div className="mb-6">
             <SectionTitle>📸 프로젝트 갤러리</SectionTitle>
-            <div className="flex gap-4 justify-center flex-wrap">
+            <div className="flex gap-3 justify-start flex-wrap">
                 {images.map((img, i) => (
-                    <img key={i} src={img} alt={`Gallery ${i}`} className="w-[180px] h-[120px] object-cover rounded-lg border-2 border-border-main cursor-pointer transition-transform hover:scale-105 hover:border-secondary hover:shadow-[0_4px_12px_rgba(100,255,218,0.3)]" onClick={() => setSelectedImage(img)} />
+                    <img key={i} src={img} alt={`Gallery ${i}`} className="w-[160px] h-[100px] object-cover rounded-lg border border-white/10 cursor-pointer transition-all duration-200 hover:border-white/30" onClick={() => setSelectedImage(img)} />
                 ))}
             </div>
         </div>
@@ -311,31 +325,31 @@ const ProjectModal = ({ project, onClose, setSelectedImage }) => {
 
     return (
         <motion.div
-            className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[2000] p-5"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-[2000] p-5"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
         >
             <motion.div
-                className="bg-[#1e1e1e]/95 backdrop-blur-xl border border-border-main rounded-3xl w-full max-w-[800px] max-h-[90vh] overflow-y-auto shadow-2xl custom-scrollbar"
-                initial={{ opacity: 0, scale: 0.8, y: 50 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: 50 }}
+                className="bg-bg-sub border border-white/10 rounded-xl w-full max-w-[750px] max-h-[90vh] overflow-y-auto shadow-2xl"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 30 }}
                 onClick={(e) => e.stopPropagation()}
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-                <div className="flex justify-between items-center p-8 pb-4 border-b border-border-main">
-                    <h2 className="text-text-main text-3xl font-bold m-0">{project.title}</h2>
-                    <button className="bg-none border-none text-text-sub text-3xl cursor-pointer w-10 h-10 flex items-center justify-center rounded-full transition-colors hover:bg-white/10 hover:text-text-main" onClick={onClose}>×</button>
+                <div className="flex justify-between items-center p-6 pb-4 border-b border-white/5">
+                    <h2 className="text-text-main text-xl font-semibold m-0">{project.title}</h2>
+                    <button className="bg-none border-none text-text-light text-2xl cursor-pointer w-8 h-8 flex items-center justify-center rounded-md transition-colors hover:bg-white/10 hover:text-text-main" onClick={onClose}>×</button>
                 </div>
 
-                <div className="p-8 flex flex-col gap-8">
-                    <div className="text-center p-8 bg-gradient-to-br from-bg-sub to-bg-third rounded-2xl overflow-hidden">
+                <div className="p-6 flex flex-col gap-6">
+                    <div className="bg-bg-main rounded-lg overflow-hidden">
                         <img
                             src={project.image}
                             alt={project.title}
-                            className="max-w-full h-auto rounded-lg shadow-lg transition-transform hover:scale-105"
+                            className="max-w-full h-auto"
                         />
                     </div>
 
@@ -562,46 +576,33 @@ src/
                         {project.id === 7 && (
                             <>
                                 <div className="mb-6"><SectionTitle>📌 프로젝트 개요</SectionTitle>
-                                    <List><li><Strong>프로젝트명:</Strong> 롤파고(LOLPAGO)</li><li><Strong>개발 기간:</Strong> 2025 - 현재</li><li><Strong>참여 인원:</Strong> 개인 프로젝트</li><li><Strong>기술 스택:</Strong> React (Vite), Node.js, PostgreSQL, JavaScript</li><li><Strong>형태:</Strong> Riot API 기반 게임 데이터 분석 웹 서비스</li></List></div>
+                                    <List><li><Strong>프로젝트명:</Strong> 롤파고(LOLPAGO)</li><li><Strong>개발 기간:</Strong> 2025 - 현재</li><li><Strong>참여 인원:</Strong> 팀 프로젝트 (프론트엔드 담당)</li><li><Strong>기술 스택:</Strong> React (Vite), JavaScript</li><li><Strong>형태:</Strong> Riot API 기반 게임 데이터 분석 웹 서비스</li></List></div>
                                 <div className="mb-6"><SectionTitle>✨ 주요 기능 및 특징</SectionTitle>
-                                    <List><li>🎮 <Strong>자체 API 설계:</Strong> Riot API 원본 데이터를 서비스 목적에 맞게 가공하여 20개 이상의 자체 엔드포인트 설계</li><li>📊 <Strong>데이터 분석 파이프라인:</Strong> KDA, 승률, 챔피언별 플레이 패턴, 라인별 성향 등 심층 분석</li><li>🗺️ <Strong>챔피언 이동 히트맵:</Strong> 타임라인 데이터를 기반으로 경기 흐름을 직관적으로 시각화</li><li>🎯 <Strong>증강 칼바람 페이지 상세화:</Strong> 기존 통계 사이트보다 더 깊은 분석 데이터 제공</li><li>🎨 <Strong>전적 검색 시 UI 톤 변화:</Strong> 사용자 행동에 따른 시각적 피드백으로 인터랙티브 경험 제공</li><li>🕹️ <Strong>미니게임 요소:</Strong> 데이터 서비스에 재미 요소를 더한 차별화된 사용자 경험</li></List></div>
-                                <div className="mb-6"><SectionTitle>🧩 사용 기술 및 구조</SectionTitle><div className="text-primary-dark leading-relaxed"><TechDescP><Strong>React (Vite)</Strong> 기반 프론트엔드에서 사용자 입력 처리, 인터랙티브 데이터 시각화, Framer Motion 기반 애니메이션 UX를 구현했습니다. 클라이언트는 표현(UI)에 집중하는 설계를 적용했습니다.</TechDescP><TechDescP><Strong>Node.js</Strong> 백엔드에서 Riot API 호출 및 데이터 수집, 가공 및 통계 계산, 자체 API 엔드포인트 제공을 담당합니다. Riot API 의존성을 서버에서 통제하고, 데이터 분석 로직을 서버 중심으로 처리하는 구조를 설계했습니다.</TechDescP><TechDescP><Strong>PostgreSQL</Strong>을 통해 소환사, 매치, 타임라인, 통계 데이터를 체계적으로 저장합니다. 단순 저장소가 아닌 데이터 가공 및 분석을 위한 핵심 계층으로 활용하며, 조건 기반 조회 최적화와 데이터 정규화를 적용했습니다.</TechDescP><TechDescP><Strong>Riot API</Strong> 연동 레이어를 통해 소환사, 매치, 타임라인 등 원천 데이터를 수집하고, 불필요한 데이터 제거 및 구조 통일을 통해 성능 최적화와 유지보수성을 확보했습니다.</TechDescP></div></div>
-                                <div className="mb-6"><SectionTitle>🏗️ 시스템 아키텍처</SectionTitle><SectionCode>{`
+                                    <List><li>🎮 <Strong>API 연동 및 데이터 시각화:</Strong> 백엔드에서 가공된 자체 엔드포인트를 연동하여 복잡한 통계를 화면에 렌더링</li><li>📊 <Strong>직관적인 UI/UX:</Strong> KDA, 승률, 챔피언별 플레이 패턴 등을 파이 차트 및 그래프로 시각화</li><li>🗺️ <Strong>챔피언 이동 히트맵:</Strong> 타임라인 데이터를 바탕으로 한 상호작용 가능한 UI 구현</li><li>🎯 <Strong>증강 칼바람 특화 뷰:</Strong> 기존 통계 사이트와 차별화된 깊이 있는 데이터 뷰어 레이아웃 설계</li><li>🎨 <Strong>전적 검색 시 동적 UI:</Strong> 승패 등 사용자 기록에 따른 동적 테마와 시각적 피드백 제공</li><li>🕹️ <Strong>미니게임 및 인터랙트 요소:</Strong> 데이터 조회 외에도 애니메이션과 재미 요소를 활용한 차별화된 웹 경험 제공</li><li>🌍 <Strong>글로벌 다국어 지원:</Strong> 글로벌 사용자를 위해 전체 서비스에 다국어(한국어, 영어, 일본어, 중국어, 베트남어) UI 인터페이스 연동 및 최적화</li></List></div>
+                                <div className="mb-6"><SectionTitle>🧩 사용 기술 및 구조</SectionTitle><div className="text-primary-dark leading-relaxed"><TechDescP><Strong>React (Vite)</Strong> 기반 프론트엔드에서 사용자 입력 처리, 인터랙티브 데이터 시각화, Framer Motion 기반 애니메이션 UX를 직접 구현했습니다. 클라이언트가 표현(UI)과 상태 관리에 오롯이 집중할 수 있도록 아키텍처를 설계했습니다.</TechDescP><TechDescP><Strong>API 연동:</Strong> 팀원이 Node.js 환경에서 제공하는 RESTful API를 Fetch/Axios를 통해 호출하고, 수신된 전적과 타임라인 데이터를 효과적으로 컴포넌트 상태에 바인딩했습니다.</TechDescP><TechDescP><Strong>프론트엔드 최적화:</Strong> 방대한 경기 데이터와 동적 애니메이션을 브라우저에서 부드럽게 렌더링하기 위해, 불필요한 리렌더링을 억제하고 데이터 구조를 프론트 화면에 맞게 재정제하여 활용했습니다.</TechDescP></div></div>
+                                <div className="mb-6"><SectionTitle>🏗️ 시스템 흐름 (프론트엔드 중심)</SectionTitle><SectionCode>{`
 [ React (Vite) Client ]
+        ↓ 비동기 API 통신
+[ Backend API Server ]
+        ↓ 데이터 응답 (가공된 Riot API 데이터)
+[ Client 상태 관리 및 캐싱 ]
         ↓
-[ Node.js Server ]
-        ↓
-[ Riot API Integration Layer ]
-        ↓
-[ Data Processing Layer ]
-        ↓
-[ PostgreSQL ]
-        ↓
-[ Custom API Endpoints (20+) ]
-        ↓
-[ Visualization UI ]
+[ 직관적이고 상호작용 가능한 UI 렌더링 ]
 `}</SectionCode></div>
-                                <div className="mb-6"><SectionTitle>🔗 주요 API 엔드포인트</SectionTitle><SectionCode>{`
-GET /statistics/top-champions?region=KR&line=UTILITY
-GET /matches?summonerId=719&season=2026&queueId=420&page=2
-GET /matches/:matchId
-GET /matches/:matchId/timeline
-GET /matchstats/most-champions
-`}</SectionCode><List><li><Strong>설계 특징:</Strong> Riot API → 서버 → 자체 API 구조로, 프론트는 가공된 데이터만 사용</li><li><Strong>확장성:</Strong> 응답 구조를 서비스 기준으로 재설계하여 페이지네이션 및 필터링 지원</li><li><Strong>클라이언트 단순화:</Strong> API 확장성 확보 및 데이터 재사용 가능 구조</li></List></div>
-                                <div className="mb-6"><SectionTitle>🧠 트러블슈팅</SectionTitle><List><li><Strong>문제:</Strong> Riot API 응답 데이터가 서비스 목적에 맞지 않는 구조<br /><Strong>해결:</Strong> 서비스 목적에 맞는 데이터 정제·필터링 파이프라인 구축 및 구조 통일</li><li><Strong>문제:</Strong> API 응답 실패, 데이터 누락, 타임라인 부족 등 다양한 예외 상황<br /><Strong>해결:</Strong> null-safe 처리, 기본값 설정, 에러 응답 통일, 데이터 검증 후 처리</li><li><Strong>문제:</Strong> 대량 매치 데이터의 조회 성능 저하<br /><Strong>해결:</Strong> PostgreSQL 조건 기반 조회 최적화 및 필요한 필드 중심 구조화</li></List></div>
-                                <div className="mb-6"><SectionTitle>🪄 느낀 점</SectionTitle><List><li><Strong>데이터 설계의 중요성:</Strong> 외부 API 데이터를 그대로 사용하지 않고 서비스에 맞게 재구성하는 경험</li><li><Strong>서버 중심 설계:</Strong> 클라이언트-서버 역할 분리와 API 의존성 관리의 핵심을 체득</li><li><Strong>UX 차별화:</Strong> 단순 데이터 나열이 아닌 인터랙티브 경험 설계의 가치</li></List></div>
-                                <div className="mb-6"><SectionTitle>🔍 개선 및 다음 목표</SectionTitle><List><li>실시간 데이터 분석 및 알림 시스템 구현</li><li>더 다양한 분석 지표 및 시각화 차트 추가</li><li>사용자 맞춤형 통계 대시보드 기능</li></List></div>
-                                <div className="mb-6"><SectionTitle>💾 프로젝트 정보</SectionTitle><List><li><Strong>개발 상태:</Strong> 운영 중</li><li><Strong>기여도:</Strong> 전체 시스템 설계 및 개발 (프론트엔드, 백엔드, DB, API)</li><li><Strong>특징:</Strong> 외부 API 데이터를 PostgreSQL과 자체 API로 재구성하여 분석과 UX까지 연결한 데이터 플랫폼</li><li><Strong>배포:</Strong> <a href="https://lolpago.com/" target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline">https://lolpago.com/</a></li></List></div>
+                                <div className="mb-6"><SectionTitle>🧠 트러블슈팅</SectionTitle><List><li><Strong>문제:</Strong> 대량의 전적 데이터 및 시각화 요소 로드 시 브라우저 렌더링 지연 발생<br /><Strong>해결:</Strong> 컴포넌트 분리 및 최적화, 애니메이션 처리 경량화를 통해 프레임 드랍 완화</li><li><Strong>문제:</Strong> 비동기 API 통신 중 발생하는 응답 대기 시간 및 데이터 지연<br /><Strong>해결:</Strong> 스켈레톤 UI와 로딩 상태 처리를 적절히 혼합 배치하여 사용자 이탈 방지 및 매끄러운 UX 유지</li></List></div>
+                                <div className="mb-6"><SectionTitle>🪄 느낀 점</SectionTitle><List><li><Strong>프론트엔드 전문성 향상:</Strong> 복잡하고 방대한 게임 통계 데이터를 사용자가 한눈에 이해할 수 있도록 디자인하고 컴포넌트화하는 역량 강화</li><li><Strong>협업의 중요성:</Strong> API 명세에 기반한 프론트-백엔드 데이터 연동 프로세스를 몸소 겪으며, 효율적인 데이터 전달 포맷의 필요성을 실감</li></List></div>
+                                <div className="mb-6"><SectionTitle>🔍 개선 및 다음 목표</SectionTitle><List><li>다양한 분석 지표 상호작용 차트 고도화</li><li>PWA(Progressive Web App) 기능 도입 등 모바일 접근성 개선</li></List></div>
+                                <div className="mb-6"><SectionTitle>💾 프로젝트 정보</SectionTitle><List><li><Strong>개발 상태:</Strong> 운영 중</li><li><Strong>기여도:</Strong> 프론트엔드 기획, UI/UX 설계 및 클라이언트 애플리케이션 개발 주도</li><li><Strong>특징:</Strong> 백엔드 통계 데이터 분석 기능과 클라이언트의 역동적인 UI가 시너지를 내는 데이터 플랫폼</li><li><Strong>배포:</Strong> <a href="https://lolpago.com/" target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline">https://lolpago.com/</a></li></List></div>
                             </>
                         )}
 
-                        <div className="flex gap-4 mt-4">
+                        <div className="flex gap-3 mt-4">
                             {project.github && (
                                 <a
                                     href={project.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-6 py-4 bg-white/5 backdrop-blur-md border border-border-main rounded-xl text-text-main no-underline font-medium transition-all duration-300 hover:bg-secondary hover:text-bg-main hover:border-secondary"
+                                    className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-text-main text-sm no-underline font-medium transition-all duration-200 hover:bg-white/10"
                                 >
                                     <FaGithub /> GitHub
                                 </a>
@@ -611,7 +612,7 @@ GET /matchstats/most-champions
                                     href={project.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-6 py-4 bg-white/5 backdrop-blur-md border border-border-main rounded-xl text-text-main no-underline font-medium transition-all duration-300 hover:bg-secondary hover:text-bg-main hover:border-secondary"
+                                    className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-text-main text-sm no-underline font-medium transition-all duration-200 hover:bg-white/10"
                                 >
                                     <FaExternalLinkAlt /> Live Demo
                                 </a>

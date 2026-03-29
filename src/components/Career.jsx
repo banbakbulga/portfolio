@@ -6,7 +6,7 @@ const Career = () => {
         {
             title: "LUMOS 소프트웨어 개발팀",
             period: "2026.01 - 현재",
-            description: "\"LOLPAGO\" 웹사이트 개발 및 롤파고 프로그램(리그오브레전드 코칭 시스템) 개발을 진행하고 있습니다."
+            description: <>"LOLPAGO" 웹사이트 개발 및 롤파고 프로그램(리그오브레전드 코칭 시스템) 개발을 진행하고 있습니다.<br />추가적으로 다양한 외주 업무도 함께 수행중입니다.</>
         },
         {
             title: "한국타이어앤테크놀로지 R&D DX팀 인턴",
@@ -41,56 +41,58 @@ const Career = () => {
     ];
 
     return (
-        <section id="career" className="py-24 bg-gradient-to-br from-bg-main to-bg-sub min-h-screen flex items-center justify-center">
-            <div className="w-full max-w-[1200px] px-5">
-                <motion.h2
-                    className="text-center text-4xl mb-4 text-text-main font-bold"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                >
-                    Career
-                </motion.h2>
+        <section id="career" className="py-28 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(255,255,255,0.01)_0%,_transparent_60%)] pointer-events-none"></div>
+
+            <div className="w-full max-w-[1100px] mx-auto px-6 relative z-10">
+                {/* Section Header */}
                 <motion.div
-                    className="text-center text-sm font-medium text-text-sub mb-8 opacity-70 tracking-widest uppercase"
+                    className="mb-20"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true, margin: "-100px" }}
                 >
-                    Timeline
+                    <span className="text-text-light text-xs font-mono tracking-widest uppercase mb-3 block">Career</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-text-main tracking-tight">
+                        Experience & Education
+                    </h2>
+                    <div className="w-8 h-px bg-text-light mt-4"></div>
                 </motion.div>
-                <motion.div
-                    className="relative max-w-[1300px] mx-auto"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
-                >
-                    {/* Center Line connected to timeline-items */}
-                    <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-secondary to-accent -translate-x-1/2"></div>
-                    {/* Mobile Line left aligned */}
-                    <div className="md:hidden absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-secondary to-accent"></div>
 
-                    {careerItems.map((item, index) => (
-                        <div
-                            key={index}
-                            className={`relative mb-12 flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} md:flex-row md:even:flex-row-reverse max-md:flex-col max-md:items-start max-md:pl-12`}
-                        >
-                            {/* Marker */}
-                            <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-gradient-to-br from-secondary to-accent rounded-full border-[3px] border-bg-main z-10 shadow-[0_0_20px_rgba(100,255,218,0.5)]"></div>
-                            {/* Mobile Marker */}
-                            <div className="md:hidden absolute left-5 -translate-x-1/2 w-4 h-4 bg-gradient-to-br from-secondary to-accent rounded-full border-[3px] border-bg-main z-10 shadow-[0_0_20px_rgba(100,255,218,0.5)]"></div>
+                {/* Timeline */}
+                <div className="relative">
+                    {/* Vertical line */}
+                    <div className="absolute left-0 md:left-8 top-0 bottom-0 w-px bg-white/5"></div>
 
-                            <div className={`w-full md:w-[calc(50%-1.5rem)] bg-white/5 backdrop-blur-md border border-border-main rounded-2xl p-10 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-secondary ${index % 2 === 0 ? 'md:mr-6' : 'md:ml-6'}`}>
-                                <h3 className="text-text-main text-2xl font-semibold mb-2">{item.title}</h3>
-                                <p className="text-secondary text-sm font-medium mb-4">{item.period}</p>
-                                <p className="text-text-sub text-base leading-relaxed m-0">{item.description}</p>
-                            </div>
-                        </div>
-                    ))}
-                </motion.div>
+                    <div className="space-y-8">
+                        {careerItems.map((item, index) => (
+                            <motion.div
+                                key={index}
+                                className="relative pl-8 md:pl-20 group"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: index * 0.05 }}
+                                viewport={{ once: true, margin: "-80px" }}
+                            >
+                                {/* Dot marker */}
+                                <div className="absolute left-0 md:left-8 top-2 -translate-x-1/2 w-2 h-2 rounded-full bg-text-light/50 border border-text-light/30 group-hover:bg-text-main group-hover:border-text-main/50 transition-colors duration-300"></div>
+
+                                <div className="pb-8 border-b border-white/[0.03] group-hover:border-white/[0.08] transition-colors duration-300">
+                                    <span className="text-text-light text-xs font-mono tracking-wider mb-2 block">
+                                        {item.period}
+                                    </span>
+                                    <h3 className="text-text-main text-lg font-semibold mb-3 tracking-tight group-hover:text-white transition-colors duration-300">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-text-sub text-sm leading-relaxed m-0">
+                                        {item.description}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </section>
     );

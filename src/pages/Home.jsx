@@ -34,7 +34,7 @@ const Home = () => {
   const closeContactModal = () => setShowContactModal(false);
 
   return (
-    <div className="home-page min-h-screen bg-bg-main text-text-main font-sans overflow-x-hidden">
+    <div className="home-page min-h-screen bg-gradient-to-br from-[#1c1c1c] via-bg-main to-[#050505] text-text-main font-sans overflow-x-hidden">
       <AnimatePresence>
         {showIntro && (
           <Intro onComplete={handleIntroComplete} />
@@ -76,7 +76,7 @@ const Home = () => {
       <AnimatePresence>
         {copyNotification.show && (
           <motion.div
-            className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-secondary text-bg-main px-6 py-3 rounded-full shadow-lg font-bold z-[3000]"
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-bg-sub text-text-main px-4 py-2.5 rounded-lg shadow-lg font-medium text-sm border border-white/10 z-[3000]"
             initial={{ opacity: 0, y: 50, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.8 }}

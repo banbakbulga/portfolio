@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaReact, FaPython, FaGithub, FaNodeJs, FaDocker } from 'react-icons/fa';
-import { SiFastapi, SiMongodb, SiOpenai, SiPostgresql, SiElectron, SiFlutter } from 'react-icons/si';
+import { SiFastapi, SiMongodb, SiOpenai, SiPostgresql, SiElectron, SiFlutter, SiTypescript } from 'react-icons/si';
 import mimoticonImage from '../img/미모티콘.png';
 
 const About = () => {
@@ -9,6 +9,7 @@ const About = () => {
 
     const skillList = [
         { name: "React", icon: FaReact, color: "#61dafb" },
+        { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
         { name: "Node.js", icon: FaNodeJs, color: "#339933" },
         { name: "Electron", icon: SiElectron, color: "#47848F" },
         { name: "Flutter", icon: SiFlutter, color: "#02569B" },
@@ -18,72 +19,69 @@ const About = () => {
         { name: "MongoDB", icon: SiMongodb, color: "#47a248" },
         { name: "Docker", icon: FaDocker, color: "#2496ED" },
         { name: "OpenAI", icon: SiOpenai, color: "#412991" },
-        { name: "GitHub", icon: FaGithub, color: "#ffffff" }
+        { name: "GitHub", icon: FaGithub, color: "#e2e8f0" }
     ];
 
     return (
-        <section id="about" className="py-24 bg-gradient-to-br from-bg-sub to-bg-third min-h-screen flex items-center justify-center">
-            <div className="w-full max-w-[1200px] px-5">
-                <motion.h2
-                    className="text-center text-4xl mb-12 text-text-main font-bold"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                >
-                    About me
-                </motion.h2>
-                <motion.div
-                    className="flex flex-col items-center gap-10 max-w-[800px] mx-auto"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    viewport={{ once: true }}
-                >
-                    {/* 1. Memoji */}
-                    <motion.div
-                        className="w-full flex justify-center items-center"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        viewport={{ once: true }}
-                        whileHover={{ scale: 1.05 }}
-                    >
-                        <img
-                            src={mimoticonImage}
-                            alt="미모티콘"
-                            className="max-w-full h-auto max-h-[250px] object-contain"
-                        />
-                    </motion.div>
+        <section id="about" className="py-28 relative overflow-hidden">
+            {/* Subtle gradient */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.015)_0%,_transparent_70%)] pointer-events-none"></div>
 
-                    {/* 2. Hashtags */}
-                    <motion.div
-                        className="flex justify-center gap-4 flex-wrap mb-10"
+            <div className="w-full max-w-[1100px] mx-auto px-6 relative z-10">
+                {/* Section Header */}
+                <motion.div
+                    className="mb-20"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                >
+                    <span className="text-text-light text-xs font-mono tracking-widest uppercase mb-3 block">About</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-text-main tracking-tight">
+                        About Me
+                    </h2>
+                    <div className="w-8 h-px bg-text-light mt-4"></div>
+                </motion.div>
+
+                {/* Main Content */}
+                <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-20 mb-24">
+                    
+                    {/* Left: Avatar + Tags */}
+                    <motion.div 
+                        className="w-full lg:w-1/3 flex flex-col items-center"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true, margin: "-100px" }}
                     >
-                        {["협력과_소통", "사용자_경험", "데이터_활용", "끊임없는_성장"].map((tag) => (
-                            <motion.span
-                                key={tag}
-                                className="text-text-main px-4 py-2 rounded-3xl text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 cursor-default bg-white/5 border border-white/10"
-                                whileHover={{ scale: 1.05 }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                            >
-                                #{tag}
-                            </motion.span>
-                        ))}
+                        <div className="relative w-40 h-40 md:w-48 md:h-48 mb-8">
+                            <div className="absolute inset-0 rounded-full bg-bg-sub border border-white/5 overflow-hidden flex items-center justify-center p-3">
+                                <img
+                                    src={mimoticonImage}
+                                    alt="미모티콘"
+                                    className="w-[80%] h-[80%] object-contain drop-shadow-md"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex flex-wrap justify-center gap-2">
+                            {["협력과_소통", "사용자_경험", "데이터_활용", "끊임없는_성장"].map((tag, idx) => (
+                                <motion.span
+                                    key={tag}
+                                    className="text-text-sub px-3 py-1.5 rounded-md text-xs font-medium bg-white/[0.03] border border-white/5 transition-colors duration-300 hover:border-white/15 hover:text-text-main cursor-default"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.05 * idx }}
+                                    viewport={{ once: true }}
+                                >
+                                    #{tag}
+                                </motion.span>
+                            ))}
+                        </div>
                     </motion.div>
 
-                    {/* 3. Keyword & Description Flip Cards */}
-                    <motion.div
-                        className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mb-16"
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.5 }}
-                        viewport={{ once: true }}
-                    >
+                    {/* Right: Value Cards */}
+                    <div className="w-full lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {[
                             {
                                 keyword: "협력과 소통",
@@ -102,71 +100,79 @@ const About = () => {
                                 desc: "프론트엔드와 백엔드를 넘나들며, 더 나은 협업과 사용자 경험을 위해 기술적 한계를 넓혀갑니다."
                             }
                         ].map((card, index) => (
-                            <div key={index} className="group h-[220px] [perspective:1000px]">
-                                <div className="relative w-full h-full transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                            <motion.div 
+                                key={index} 
+                                className="group h-[180px] [perspective:1000px] cursor-pointer"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.08 * index }}
+                                viewport={{ once: true, margin: "-50px" }}
+                            >
+                                <div className="relative w-full h-full transition-all duration-600 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                                     {/* Front */}
-                                    <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md [backface-visibility:hidden]">
-                                        <h4 className="text-2xl font-bold text-text-main">{card.keyword}</h4>
+                                    <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-bg-sub/50 border border-white/5 rounded-xl [backface-visibility:hidden]">
+                                        <h4 className="text-lg font-semibold text-text-main tracking-wide">
+                                            {card.keyword}
+                                        </h4>
                                     </div>
                                     {/* Back */}
-                                    <div className="absolute inset-0 w-full h-full flex items-center justify-center p-6 bg-white/10 border border-secondary/30 rounded-2xl backdrop-blur-md [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                                        <p className="text-text-sub text-base leading-relaxed text-center break-keep">
+                                    <div className="absolute inset-0 w-full h-full flex items-center justify-center p-6 bg-bg-sub border border-white/10 rounded-xl [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                                        <p className="text-text-sub text-sm leading-relaxed text-center break-keep">
                                             {card.desc}
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
-                    </motion.div>
+                    </div>
+                </div>
 
-                    {/* 4. Skills */}
-                    <div className="w-full text-center mt-4">
-                        <motion.h3
-                            className="text-2xl mb-6 text-text-main font-semibold"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.7 }}
-                            viewport={{ once: true }}
-                        >
-                            Skills & Tools
-                        </motion.h3>
-                        <motion.div
-                            className="flex justify-center gap-5 flex-wrap"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.8 }}
-                            viewport={{ once: true }}
-                        >
-                            {skillList.map((skill) => (
-                                <motion.div
-                                    key={skill.name}
-                                    className="flex items-center justify-center w-12 h-12 p-3 bg-white/5 backdrop-blur-md border border-border-main rounded-xl relative transition-all duration-300 hover:bg-white/10 hover:border-secondary hover:shadow-[0_8px_25px_rgba(100,255,218,0.2)]"
-                                    whileHover={{ scale: 1.1, y: -5 }}
-                                    transition={{ type: "spring", stiffness: 300 }}
-                                    onMouseEnter={() => setHoveredSkill(skill.name)}
-                                    onMouseLeave={() => setHoveredSkill(null)}
-                                >
+                {/* Skills */}
+                <motion.div 
+                    className="pt-12 border-t border-white/5"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                >
+                    <h3 className="text-lg font-semibold text-text-main mb-8 tracking-tight">
+                        Skills & Tools
+                    </h3>
+                    
+                    <div className="flex justify-start gap-4 md:gap-5 flex-wrap max-w-[800px]">
+                        {skillList.map((skill, idx) => (
+                            <motion.div
+                                key={skill.name}
+                                className="relative group w-12 h-12"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.3, delay: idx * 0.03 }}
+                                viewport={{ once: true }}
+                                onMouseEnter={() => setHoveredSkill(skill.name)}
+                                onMouseLeave={() => setHoveredSkill(null)}
+                            >
+                                <div className="w-full h-full flex items-center justify-center bg-white/[0.03] border border-white/5 rounded-lg transition-all duration-200 group-hover:bg-white/[0.08] group-hover:border-white/15 cursor-pointer">
                                     <skill.icon
-                                        className="text-2xl transition-all duration-300"
+                                        className="text-xl transition-all duration-200 opacity-60 group-hover:opacity-100"
                                         style={{ color: skill.color }}
                                     />
-                                    <AnimatePresence>
-                                        {hoveredSkill === skill.name && (
-                                            <motion.div
-                                                className="absolute top-[125%] left-1/2 -translate-x-1/2 bg-bg-third text-text-main px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap shadow-lg border border-border-main z-50 pointer-events-none backdrop-blur-sm"
-                                                initial={{ opacity: 0, y: 5, x: "-50%", scale: 0.9 }}
-                                                animate={{ opacity: 1, y: 0, x: "-50%", scale: 1 }}
-                                                exit={{ opacity: 0, y: 5, x: "-50%", scale: 0.9 }}
-                                                transition={{ duration: 0.2 }}
-                                            >
-                                                {skill.name}
-                                                <div className="absolute bottom-full left-1/2 -translate-x-1/2 border-6 border-transparent border-b-bg-third"></div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </motion.div>
-                            ))}
-                        </motion.div>
+                                </div>
+                                
+                                <AnimatePresence>
+                                    {hoveredSkill === skill.name && (
+                                        <motion.div
+                                            className="absolute top-full mt-2 left-1/2 px-2.5 py-1 bg-bg-sub text-text-main rounded-md text-[11px] font-medium shadow-lg border border-white/10 z-50 pointer-events-none whitespace-nowrap"
+                                            initial={{ opacity: 0, y: -5, x: "-50%" }}
+                                            animate={{ opacity: 1, y: 0, x: "-50%" }}
+                                            exit={{ opacity: 0, y: -5, x: "-50%" }}
+                                            transition={{ duration: 0.12 }}
+                                        >
+                                            {skill.name}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </motion.div>
+                        ))}
                     </div>
                 </motion.div>
             </div>

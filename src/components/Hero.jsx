@@ -1,24 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FaGithub, FaEnvelope, FaPhone, FaArrowRight } from 'react-icons/fa';
 import profileImage from '../img/양준혁 증사 배경제거.png';
 
-const FloatingElement = ({ text, delay, className }) => (
-    <motion.div
-        className={`absolute bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-3xl text-text-sub text-sm font-semibold border border-border-main shadow-lg ${className}`}
-        animate={{
-            y: [0, -20, 0],
-            rotate: [0, 5, 0]
-        }}
-        transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: delay
-        }}
-    >
-        {text}
-    </motion.div>
+const IconButton = ({ icon: Icon, tooltip, onClick, onMouseEnter, onMouseLeave, showTooltip }) => (
+    <div className="relative inline-flex items-center justify-center w-10 h-10 group">
+        <motion.button
+            onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full h-full flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-text-sub text-base backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:text-text-main cursor-pointer outline-none"
+        >
+            <Icon />
+        </motion.button>
+        <AnimatePresence>
+            {showTooltip && (
+                <motion.div
+                    initial={{ opacity: 0, y: 8, x: "-50%", scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, x: "-50%", scale: 1 }}
+                    exit={{ opacity: 0, y: 8, x: "-50%", scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute bottom-full mb-2.5 left-1/2 px-3 py-1.5 bg-bg-sub border border-white/10 rounded-lg text-xs text-text-main shadow-lg whitespace-nowrap z-50 pointer-events-none"
+                >
+                    {tooltip}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-bg-sub"></div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    </div>
 );
 
 const Hero = ({ onOpenContactModal, setCopyNotification }) => {
@@ -27,28 +38,9 @@ const Hero = ({ onOpenContactModal, setCopyNotification }) => {
     const [showPhoneTooltip, setShowPhoneTooltip] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setShowScrollIndicator(false);
-            } else {
-                setShowScrollIndicator(true);
-            }
-        };
-
+        const handleScroll = () => setShowScrollIndicator(window.scrollY < 50);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (!event.target.closest('.contact-icon-wrapper')) {
-                setShowEmailTooltip(false);
-                setShowPhoneTooltip(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     const copyToClipboard = async (text, type) => {
@@ -56,261 +48,150 @@ const Hero = ({ onOpenContactModal, setCopyNotification }) => {
             await navigator.clipboard.writeText(text);
             setCopyNotification({ show: true, message: `${type}을 복사했습니다.` });
         } catch (err) {
-            console.error('복사 실패:', err);
             setCopyNotification({ show: true, message: '복사에 실패했습니다.' });
         }
     };
 
-    const copyEmail = () => copyToClipboard('junh9126@gmail.com', '메일 주소');
-    const copyPhone = () => copyToClipboard('010-5766-1639', '전화번호');
-
     return (
-        <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-bg-main via-bg-sub to-bg-third relative overflow-hidden">
-            {/* Background grain effect */}
-            <div className="absolute inset-0 opacity-30 pointer-events-none z-0" style={{
-                backgroundImage: `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>')`
-            }}></div>
+        <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+            {/* Subtle gradient overlay — no flashy glows */}
+            <div className="absolute inset-0 bg-gradient-to-br from-bg-sub/30 via-transparent to-bg-sub/20 pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_rgba(255,255,255,0.02)_0%,_transparent_50%)] pointer-events-none"></div>
 
-            <div className="w-full max-w-[1200px] px-5 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center text-center md:text-left">
-                    <motion.div
-                        className="text-text-main"
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
+            <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 relative z-10 flex flex-col md:flex-row items-center justify-between gap-16 mt-20 md:mt-0">
+                {/* Left: Typography & CTAs */}
+                <motion.div
+                    className="flex-1 w-full text-center md:text-left z-20"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+                >
+                    <motion.div 
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 mb-8"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3, duration: 0.6 }}
                     >
-                        <motion.div
-                            className="text-lg font-normal mb-2 text-text-sub"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.2, duration: 0.6 }}
+                        <span className="flex h-1.5 w-1.5 relative">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400"></span>
+                        </span>
+                        <span className="text-text-sub text-[11px] font-mono tracking-wider uppercase">Available for work</span>
+                    </motion.div>
+
+                    <h1 className="text-[2.8rem] sm:text-[4rem] lg:text-[5rem] font-bold tracking-tight leading-[1.1] text-text-main mb-6">
+                        <motion.span 
+                            className="block"
+                            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
+                        >Frontend</motion.span>
+                        <motion.span 
+                            className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-text-sub to-text-light"
+                            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.7 }}
+                        >Developer.</motion.span>
+                    </h1>
+
+                    <motion.p 
+                        className="text-base sm:text-lg text-text-sub font-light leading-relaxed max-w-[480px] mx-auto md:mx-0 mb-10"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.8 }}
+                    >
+                        안녕하세요, 웹 개발자 <strong className="font-medium text-text-main">양준혁</strong>입니다.<br className="hidden md:block"/>
+                        사용자 중심의 직관적 UX와 복잡한 데이터 시각화를 연결하는 <br className="hidden md:block"/>
+                        완성도 높은 웹 인터랙션 경험을 만듭니다.
+                    </motion.p>
+
+                    <motion.div 
+                        className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start"
+                        initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.7 }}
+                    >
+                        <a 
+                            href="#projects" 
+                            className="group flex items-center justify-center gap-2 px-6 py-2.5 bg-white text-bg-main font-medium text-sm rounded-lg hover:bg-gray-100 transition-colors duration-200 outline-none no-underline"
                         >
-                            안녕하세요,
-                            <motion.span
-                                className="ml-2 bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent font-semibold"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.4, duration: 0.6 }}
-                            >
-                                웹 개발자
-                            </motion.span>
-                        </motion.div>
-                        <motion.h1
-                            className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight flex flex-wrap gap-x-1"
-                            initial="hidden"
-                            animate="visible"
-                            variants={{
-                                hidden: { opacity: 0 },
-                                visible: {
-                                    opacity: 1,
-                                    transition: {
-                                        staggerChildren: 0.1,
-                                        delayChildren: 0.8
-                                    }
-                                }
-                            }}
-                        >
-                            <div className="flex">
-                                {["양", "준", "혁"].map((char, index) => (
-                                    <motion.span
-                                        key={`name-${index}`}
-                                        className="bg-gradient-to-br from-secondary to-accent bg-clip-text text-transparent inline-block"
-                                        variants={{
-                                            hidden: { opacity: 0, y: 20 },
-                                            visible: {
-                                                opacity: 1,
-                                                y: 0,
-                                                transition: {
-                                                    duration: 0.8,
-                                                    ease: [0.2, 0.65, 0.3, 0.9]
-                                                }
-                                            }
-                                        }}
-                                    >
-                                        {char}
-                                    </motion.span>
-                                ))}
-                            </div>
-                            <div className="flex">
-                                {["입", "니", "다"].map((char, index) => (
-                                    <motion.span
-                                        key={`greeting-${index}`}
-                                        className="text-white inline-block"
-                                        variants={{
-                                            hidden: { opacity: 0, y: 20 },
-                                            visible: {
-                                                opacity: 1,
-                                                y: 0,
-                                                transition: {
-                                                    duration: 0.8,
-                                                    ease: [0.2, 0.65, 0.3, 0.9]
-                                                }
-                                            }
-                                        }}
-                                    >
-                                        {char}
-                                    </motion.span>
-                                ))}
-                            </div>
-                        </motion.h1>
-                        <motion.p
-                            className="text-lg leading-relaxed mb-10 text-text-sub max-w-[500px] mx-auto md:mx-0"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8, duration: 0.8 }}
-                        >
-                            <br />
-                            사용자 경험을 중요시하는 마인드,
-                            <br />창의적이고 직관적인 웹 애플리케이션을 개발합니다.
-                            <br />데이터를 활용한 혁신적인 솔루션을 제공합니다.
-                        </motion.p>
-                        <motion.div
-                            className="flex gap-6 justify-center md:justify-start"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1.2, duration: 0.6 }}
-                        >
+                            View Projects
+                            <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-0.5 text-xs" />
+                        </a>
+
+                        <div className="flex gap-2">
                             <motion.a
                                 href="https://github.com/banbakbulga"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label="GitHub"
-                                whileHover={{ scale: 1.1, y: -3 }}
+                                className="w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-text-sub text-base backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:text-text-main"
+                                whileHover={{ y: -2 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="text-text-sub text-2xl p-2 transition-all duration-300 hover:text-secondary hover:-translate-y-1"
                             >
                                 <FaGithub />
                             </motion.a>
-
-                            <div className="contact-icon-wrapper relative inline-block">
-                                <motion.button
-                                    onClick={copyEmail}
-                                    onMouseEnter={() => setShowEmailTooltip(true)}
-                                    onMouseLeave={() => setShowEmailTooltip(false)}
-                                    aria-label="Email 복사"
-                                    whileHover={{ scale: 1.1, y: -3 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-transparent border-none text-text-sub text-2xl p-2 cursor-pointer transition-all duration-300 hover:text-secondary hover:-translate-y-1"
-                                >
-                                    <FaEnvelope />
-                                </motion.button>
-                                <AnimatePresence>
-                                    {showEmailTooltip && (
-                                        <motion.div
-                                            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-bg-third text-text-main px-3 py-1.5 rounded-md text-sm font-medium whitespace-nowrap shadow-lg border border-border-main z-50"
-                                            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                                            transition={{ duration: 0.2 }}
-                                        >
-                                            <span>junh9126@gmail.com</span>
-                                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-bg-third"></div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-
-                            <div className="contact-icon-wrapper relative inline-block">
-                                <motion.button
-                                    onClick={copyPhone}
-                                    onMouseEnter={() => setShowPhoneTooltip(true)}
-                                    onMouseLeave={() => setShowPhoneTooltip(false)}
-                                    aria-label="전화번호 복사"
-                                    whileHover={{ scale: 1.1, y: -3 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-transparent border-none text-text-sub text-2xl p-2 cursor-pointer transition-all duration-300 hover:text-secondary hover:-translate-y-1"
-                                >
-                                    <FaPhone />
-                                </motion.button>
-                                <AnimatePresence>
-                                    {showPhoneTooltip && (
-                                        <motion.div
-                                            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-bg-third text-text-main px-3 py-1.5 rounded-md text-sm font-medium whitespace-nowrap shadow-lg border border-border-main z-50"
-                                            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                                            transition={{ duration: 0.2 }}
-                                        >
-                                            <span>010-5766-1639</span>
-                                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-bg-third"></div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                    <motion.div
-                        className="relative flex justify-center items-center"
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3, duration: 1 }}
-                    >
-                        <div className="relative z-0">
-                            <motion.div
-                                className="relative group cursor-pointer"
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ type: "spring", stiffness: 200, damping: 25, duration: 0.6 }}
-                                onClick={onOpenContactModal}
-                            >
-                                <div className="absolute -top-6 left-1/2 -translate-x-1/2 py-1 px-3 text-xs font-medium z-10 transition-all duration-300 text-text-sub opacity-0 group-hover:opacity-100 group-hover:-translate-y-1">Click me</div>
-                                <div className="w-[280px] md:w-[420px] h-auto relative">
-                                    <img
-                                        src={profileImage}
-                                        alt="양준혁 프로필 사진"
-                                        className="w-full h-auto transition-transform duration-300 group-hover:scale-[1.005]"
-                                    />
-                                </div>
-                                <motion.div
-                                    className="absolute bottom-[-15px] left-[54%] -translate-x-1/2 bg-gradient-to-br from-secondary to-accent text-bg-main px-7 py-3 rounded-full text-base font-bold shadow-[0_8px_25px_rgba(100,255,218,0.3)] border-2 border-border-main whitespace-nowrap"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 1.5, duration: 0.6 }}
-                                >
-                                    <span>Available for work</span>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-
-                        {/* Floating Elements (Hidden on mobile) */}
-                        <div className="hidden md:block absolute inset-0 pointer-events-none">
-                            {/* Simplified floating elements with Tailwind animations if config allows or inline styles */}
-                            {/* Since we can't easily do complex keyframes in Tailwind without config, I'll use framer-motion here which is already used */}
-                            <FloatingElement text="React" delay={0} className="top-[15%] right-[5%]" />
-                            <FloatingElement text="UI/UX" delay={1} className="top-[40%] left-[-5%]" />
-                            <FloatingElement text="Data" delay={2} className="bottom-[40%] right-[5%]" />
-                            <FloatingElement text="LLM" delay={0.5} className="bottom-[15%] left-[5%]" />
+                            <IconButton 
+                                icon={FaEnvelope} 
+                                tooltip="junh9126@gmail.com" 
+                                onClick={() => copyToClipboard('junh9126@gmail.com', '이메일')}
+                                onMouseEnter={() => setShowEmailTooltip(true)}
+                                onMouseLeave={() => setShowEmailTooltip(false)}
+                                showTooltip={showEmailTooltip}
+                            />
+                            <IconButton 
+                                icon={FaPhone} 
+                                tooltip="010-5766-1639" 
+                                onClick={() => copyToClipboard('010-5766-1639', '전화번호')}
+                                onMouseEnter={() => setShowPhoneTooltip(true)}
+                                onMouseLeave={() => setShowPhoneTooltip(false)}
+                                showTooltip={showPhoneTooltip}
+                            />
                         </div>
                     </motion.div>
-                </div>
+                </motion.div>
 
-                {/* Scroll Indicator */}
-                <AnimatePresence>
-                    {showScrollIndicator && (
-                        <motion.div
-                            className="fixed bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-50"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
-                            transition={{ delay: 2, duration: 0.3 }}
+                {/* Right: Profile Image */}
+                <motion.div 
+                    className="flex-1 w-full relative flex justify-center items-center mt-8 md:mt-0"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 1 }}
+                >
+                    <div className="relative w-[260px] md:w-[360px]">
+                        {/* Very subtle ambient glow - barely visible */}
+                        <div className="absolute inset-0 rounded-full bg-white/[0.03] blur-3xl scale-110 pointer-events-none"></div>
+                        
+                        <motion.div 
+                            className="relative z-10 w-full cursor-pointer group"
+                            whileHover={{ y: -5 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                            onClick={onOpenContactModal}
                         >
-                            <div className="text-text-sub text-sm font-medium drop-shadow-md tracking-wide">더 알아보기</div>
-                            <motion.div
-                                className="text-text-sub opacity-80"
-                                animate={{ y: [0, 8, 0] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                            >
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </motion.div>
+                            <img 
+                                src={profileImage} 
+                                alt="양준혁 프로필" 
+                                className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-transform duration-500 ease-out"
+                            />
+                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                <span className="px-3 py-1.5 bg-bg-sub/90 backdrop-blur-sm border border-white/10 text-text-main text-xs rounded-md shadow-lg">
+                                    Contact Me
+                                </span>
+                            </div>
                         </motion.div>
-                    )}
-                </AnimatePresence>
+                    </div>
+                </motion.div>
             </div>
+            
+            {/* Minimal Scroll Indicator */}
+            <AnimatePresence>
+                {showScrollIndicator && (
+                    <motion.div
+                        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-50 pointer-events-none"
+                        initial={{ opacity: 0 }} animate={{ opacity: 0.4 }} exit={{ opacity: 0 }} transition={{ delay: 1.5, duration: 0.8 }}
+                    >
+                        <div className="w-px h-10 relative overflow-hidden bg-white/10">
+                            <motion.div 
+                                className="w-full h-1/2 bg-gradient-to-b from-transparent via-white/40 to-transparent"
+                                animate={{ y: [-20, 40] }}
+                                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                            />
+                        </div>
+                        <span className="text-[9px] uppercase tracking-[0.25em] text-text-light">Scroll</span>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };
-
-
 
 export default Hero;
