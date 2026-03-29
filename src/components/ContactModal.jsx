@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { FaGithub, FaEnvelope, FaPhone } from 'react-icons/fa';
 
 const ContactModal = ({ onClose, setCopyNotification }) => {
-    const [showEmailTooltip, setShowEmailTooltip] = useState(false);
-    const [showPhoneTooltip, setShowPhoneTooltip] = useState(false);
-
     const copyToClipboard = async (text, type) => {
         try {
             await navigator.clipboard.writeText(text);
