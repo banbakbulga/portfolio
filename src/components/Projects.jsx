@@ -97,7 +97,7 @@ const Projects = () => {
             image: portfolioImage,
             tech: ["React", "JavaScript", "GitHub Pages"],
             link: "https://banbakbulga.github.io/portfolio/",
-            github: "https://github.com/banbakbulga/portfolio",
+            github: "",
             category: "frontend",
             featured: true
         },
