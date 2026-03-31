@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/portfolio/static/css/main.fcee996c.css",
-    "main.js": "/portfolio/static/js/main.3fa6771f.js",
+    "main.js": "/portfolio/static/js/main.a379ac7c.js",
     "static/js/453.ed455b0c.chunk.js": "/portfolio/static/js/453.ed455b0c.chunk.js",
     "static/media/돌비.png": "/portfolio/static/media/돌비.d5c617b6ccf6ac049ea5.png",
     "static/media/롤파고앱.png": "/portfolio/static/media/롤파고앱.71024e219e46979ca1fb.png",
@@ -25,11 +25,11 @@
     "static/media/heukbeak.png": "/portfolio/static/media/heukbeak.a92e8b99130329c4d801.png",
     "index.html": "/portfolio/index.html",
     "main.fcee996c.css.map": "/portfolio/static/css/main.fcee996c.css.map",
-    "main.3fa6771f.js.map": "/portfolio/static/js/main.3fa6771f.js.map",
+    "main.a379ac7c.js.map": "/portfolio/static/js/main.a379ac7c.js.map",
     "453.ed455b0c.chunk.js.map": "/portfolio/static/js/453.ed455b0c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fcee996c.css",
-    "static/js/main.3fa6771f.js"
+    "static/js/main.a379ac7c.js"
   ]
 }
