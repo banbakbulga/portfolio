@@ -1105,18 +1105,113 @@ src/
                                     <TechDescP><Strong>폴링 아키텍처:</Strong> 게임 페이즈 감지(1500ms), 챔피언 선택 변경 감지(1000ms), 인게임 스냅샷(1000ms) 등 다단계 폴링으로 상태를 관리합니다.</TechDescP>
                                     <TechDescP><Strong>Win32 윈도우 트래킹:</Strong> PowerShell을 통해 게임 창의 위치·크기를 실시간 추적하여 오버레이 창을 동적으로 리포지셔닝합니다.</TechDescP>
                                 </div></div>
-                                <div className="mb-6"><SectionTitle>시스템 흐름</SectionTitle><SectionCode>{`League of Legends Client (LCU API)
-     ↓ lockfile 읽기 / HTTPS 통신
-Electron Main Process
-     ├── 게임 상태 모니터링 (폴링)
-     ├── 미니맵 캡처 → 서버 전송
-     ├── 룬/아이템/밴/챔피언 추천 API 호출
-     ├── WebSocket ↔ AI 코칭 서버
-     └── IPC 통신
-          ↓
-Electron Renderer (React)
-     ├── 메인 윈도우 (대시보드 / 챔피언 선택 화면)
-     └── 오버레이 윈도우 (인게임 토스트 알림)`}</SectionCode></div>
+                                <div className="mb-6"><SectionTitle>시스템 아키텍처</SectionTitle>
+                                    <div className="py-6">
+                                        {/* LoL Client */}
+                                        <div className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-4 text-center mb-3">
+                                            <span className="text-white/40 text-[10px] font-mono uppercase tracking-widest">League of Legends Client</span>
+                                            <p className="text-text-sub text-xs mt-2">LCU API — lockfile 기반 HTTPS 인증 통신</p>
+                                        </div>
+                                        <div className="flex justify-center mb-3">
+                                            <div className="flex flex-col items-center">
+                                                <div className="w-px h-3 bg-white/15" />
+                                                <span className="text-[10px] text-text-light font-mono">lockfile / HTTPS</span>
+                                                <div className="w-px h-3 bg-white/15" />
+                                            </div>
+                                        </div>
+
+                                        {/* Electron Main Process */}
+                                        <div className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-5 mb-3">
+                                            <span className="text-white/40 text-[10px] font-mono uppercase tracking-widest">Electron Main Process</span>
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
+                                                {[
+                                                    { title: "게임 상태 감지", desc: "다단계 폴링 (1000~1500ms)" },
+                                                    { title: "미니맵 캡처", desc: "desktopCapturer → 서버 전송" },
+                                                    { title: "LCU 제어", desc: "룬 자동 세팅 / 챔피언 정보" },
+                                                    { title: "윈도우 트래킹", desc: "Win32 API 창 위치 추적" },
+                                                ].map((item, i) => (
+                                                    <div key={i} className="bg-white/[0.03] border border-white/[0.06] rounded-md p-3">
+                                                        <p className="text-text-main text-xs font-medium">{item.title}</p>
+                                                        <p className="text-white/30 text-[10px] mt-1">{item.desc}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* IPC + WebSocket arrows */}
+                                        <div className="grid grid-cols-2 gap-3 mb-3">
+                                            <div className="flex justify-center">
+                                                <div className="flex flex-col items-center">
+                                                    <div className="w-px h-3 bg-white/15" />
+                                                    <span className="text-[10px] text-text-light font-mono">IPC (invoke / on)</span>
+                                                    <div className="w-px h-3 bg-white/15" />
+                                                </div>
+                                            </div>
+                                            <div className="flex justify-center">
+                                                <div className="flex flex-col items-center">
+                                                    <div className="w-px h-3 bg-white/15" />
+                                                    <span className="text-[10px] text-text-light font-mono">WebSocket</span>
+                                                    <div className="w-px h-3 bg-white/15" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Bottom: Renderer + AI Server */}
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {/* Renderer */}
+                                            <div className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-5">
+                                                <span className="text-white/40 text-[10px] font-mono uppercase tracking-widest">Renderer — React (Vite)</span>
+                                                <div className="grid grid-cols-1 gap-2 mt-4">
+                                                    {[
+                                                        { title: "메인 윈도우", desc: "대시보드 / 챔피언 선택 / 밴픽 추천" },
+                                                        { title: "오버레이 윈도우", desc: "Always-on-Top 인게임 토스트 알림" },
+                                                        { title: "시뮬레이션", desc: "과거 경기 AI 코칭 리플레이" },
+                                                    ].map((item, i) => (
+                                                        <div key={i} className="bg-white/[0.03] border border-white/[0.06] rounded-md p-3">
+                                                            <p className="text-text-main text-xs font-medium">{item.title}</p>
+                                                            <p className="text-white/30 text-[10px] mt-1">{item.desc}</p>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            {/* AI Server */}
+                                            <div className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-5">
+                                                <span className="text-white/40 text-[10px] font-mono uppercase tracking-widest">AI 코칭 서버</span>
+                                                <div className="grid grid-cols-1 gap-2 mt-4">
+                                                    {[
+                                                        { title: "미니맵 분석", desc: "캡처 이미지 기반 상황 판단" },
+                                                        { title: "실시간 코칭", desc: "AI 전략 조언 생성 & 푸시" },
+                                                        { title: "TTS 음성", desc: "음성 모델 선택 & 큐잉 시스템" },
+                                                    ].map((item, i) => (
+                                                        <div key={i} className="bg-white/[0.03] border border-white/[0.06] rounded-md p-3">
+                                                            <p className="text-text-main text-xs font-medium">{item.title}</p>
+                                                            <p className="text-white/30 text-[10px] mt-1">{item.desc}</p>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Game Phase Flow */}
+                                    <p className="text-white/40 text-[10px] font-mono uppercase tracking-widest mt-6 mb-4">게임 페이즈별 동작 흐름</p>
+                                    <div className="space-y-2">
+                                        {[
+                                            { step: "1", label: "IDLE — 대기", desc: "LCU lockfile 감시, 클라이언트 연결 대기 및 소환사 프로필 로드" },
+                                            { step: "2", label: "CHAMPION SELECT — 챔피언 선택", desc: "밴/카운터 추천, 챔피언 추천(티어/카운터/시너지/하이브리드), 팀 조합 분석, 룬 자동 세팅" },
+                                            { step: "3", label: "IN GAME — 인게임", desc: "미니맵 자동 캡처 → AI 서버 전송, WebSocket으로 실시간 코칭 수신, 오버레이 토스트 알림 표시" },
+                                            { step: "4", label: "POST GAME — 게임 종료", desc: "경기 결과 요약, AI 코칭 리뷰, 시뮬레이션 모드 진입 가능" },
+                                        ].map((item) => (
+                                            <div key={item.step} className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-3 flex items-start gap-3">
+                                                <span className="text-[10px] font-mono text-white/30 bg-white/[0.06] px-2 py-0.5 rounded shrink-0">{item.step}</span>
+                                                <div>
+                                                    <p className="text-text-main text-xs font-medium">{item.label}</p>
+                                                    <p className="text-white/30 text-[10px] mt-0.5">{item.desc}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
                                 <div className="mb-6"><SectionTitle>트러블슈팅</SectionTitle>
                                     <List>
                                         <li><Strong>문제:</Strong> 미니맵 크기가 유저 설정(MinimapScale 0.0~3.0)에 따라 동적으로 변함<br /><Strong>해결:</Strong> LCU의 HUD 설정 API와 game.cfg 파일 감시를 조합하여 미니맵 스케일을 실시간 동기화하고, 비율 계산 공식으로 정확한 캡처 영역 산출</li>
