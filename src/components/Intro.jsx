@@ -43,38 +43,15 @@ const techIcons = [
     { Icon: SiFlask, color: "#cccccc" },
 ];
 
-// Generate non-overlapping scattered positions around center
-const generatePositions = () => {
-    const positions = [];
-    const minDist = 80; // minimum distance between icon centers
-
-    const hasCollision = (newX, newY) => {
-        return positions.some(p => Math.hypot(p.x - newX, p.y - newY) < minDist);
+// Calculate circle positions for each icon
+const circlePositions = techIcons.map((_, i) => {
+    const angle = (i / techIcons.length) * 2 * Math.PI - Math.PI / 2;
+    const radius = 280;
+    return {
+        x: Math.cos(angle) * radius,
+        y: Math.sin(angle) * radius,
     };
-
-    for (let i = 0; i < techIcons.length; i++) {
-        let x, y, attempts = 0;
-        do {
-            const angle = Math.random() * Math.PI * 2;
-            const radius = 200 + Math.random() * 500;
-            x = Math.cos(angle) * radius;
-            y = Math.sin(angle) * radius;
-            attempts++;
-        } while (
-            attempts < 200 &&
-            hasCollision(x, y)
-        );
-        positions.push({
-            x,
-            y,
-            rotate: Math.random() * 360,
-            scale: 0.7 + Math.random() * 0.5,
-        });
-    }
-    return positions;
-};
-
-const scatteredPositions = generatePositions();
+});
 
 const Intro = ({ onComplete }) => {
     const [phase, setPhase] = useState('scatter'); // scatter -> gather -> text
@@ -101,27 +78,25 @@ const Intro = ({ onComplete }) => {
                 transition: { duration: 0.8, ease: "easeInOut" }
             }}
         >
-            {/* Tech Stack Icons */}
+            {/* Tech Stack Icons - circle drawing animation */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 {techIcons.map(({ Icon, color }, i) => (
                     <motion.div
                         key={i}
                         className="absolute"
                         initial={{
-                            x: scatteredPositions[i].x * 2,
-                            y: scatteredPositions[i].y * 2,
+                            x: 0,
+                            y: 0,
                             opacity: 0,
                             scale: 0,
-                            rotate: scatteredPositions[i].rotate,
                         }}
                         animate={
                             phase === 'scatter'
                                 ? {
-                                    x: scatteredPositions[i].x,
-                                    y: scatteredPositions[i].y,
+                                    x: circlePositions[i].x,
+                                    y: circlePositions[i].y,
                                     opacity: 0.85,
-                                    scale: scatteredPositions[i].scale,
-                                    rotate: scatteredPositions[i].rotate,
+                                    scale: 1,
                                 }
                                 : phase === 'gather'
                                     ? {
@@ -129,7 +104,6 @@ const Intro = ({ onComplete }) => {
                                         y: 0,
                                         opacity: 0,
                                         scale: 0.2,
-                                        rotate: 0,
                                     }
                                     : {
                                         x: 0,
@@ -141,13 +115,13 @@ const Intro = ({ onComplete }) => {
                         transition={
                             phase === 'scatter'
                                 ? {
-                                    duration: 0.6,
-                                    delay: i * 0.04,
-                                    ease: [0.34, 1.56, 0.64, 1], // spring-like overshoot
+                                    duration: 0.3,
+                                    delay: i * 0.03,
+                                    ease: [0.25, 0.4, 0.25, 1],
                                 }
                                 : {
-                                    duration: 0.7,
-                                    delay: i * 0.02,
+                                    duration: 0.5,
+                                    delay: i * 0.015,
                                     ease: [0.65, 0, 0.35, 1],
                                 }
                         }
@@ -155,7 +129,7 @@ const Intro = ({ onComplete }) => {
                         <Icon
                             style={{
                                 color,
-                                fontSize: '2.5rem',
+                                fontSize: '2rem',
                                 filter: `drop-shadow(0 0 8px ${color}33)`,
                             }}
                         />

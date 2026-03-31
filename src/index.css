@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Viewport-based scaling: all rem units scale proportionally with screen width */
+/* 1920px → 16px, 2560px → 21.33px, 3840px → 32px */
+@media (min-width: 1024px) {
+  html {
+    font-size: calc(100vw / 120);
+  }
+}
+
 /* Hide scrollbar globally */
 *::-webkit-scrollbar {
   display: none;
@@ -11,6 +19,7 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
 
 body {
   margin: 0;

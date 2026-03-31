@@ -9,6 +9,7 @@ import Projects from '../components/Projects';
 import Footer from '../components/Footer';
 import ContactModal from '../components/ContactModal';
 import ScrollToTop from '../components/ScrollToTop';
+import CursorGlow from '../components/CursorGlow';
 
 const Home = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -34,7 +35,9 @@ const Home = () => {
   const closeContactModal = () => setShowContactModal(false);
 
   return (
-    <div className="home-page min-h-screen bg-gradient-to-br from-[#1c1c1c] via-bg-main to-[#050505] text-text-main font-sans overflow-x-hidden">
+    <div className="home-page min-h-screen bg-bg-main text-text-main font-sans overflow-x-hidden">
+      <CursorGlow />
+
       <AnimatePresence>
         {showIntro && (
           <Intro onComplete={handleIntroComplete} />
@@ -46,6 +49,7 @@ const Home = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, ease: "easeInOut" }}
+          className=""
         >
           <Hero
             onOpenContactModal={openContactModal}

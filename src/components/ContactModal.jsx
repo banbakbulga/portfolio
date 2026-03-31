@@ -27,7 +27,7 @@ const ContactModal = ({ onClose, setCopyNotification }) => {
             onClick={onClose}
         >
             <motion.div
-                className="bg-bg-sub border border-white/10 rounded-xl w-full max-w-[380px] shadow-2xl overflow-hidden p-6 flex flex-col"
+                className="bg-bg-sub border border-white/10 rounded-xl w-full max-w-[23.75rem] shadow-2xl overflow-hidden p-6 flex flex-col"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
@@ -42,7 +42,7 @@ const ContactModal = ({ onClose, setCopyNotification }) => {
                     <a href="https://github.com/banbakbulga" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 bg-white/[0.03] border border-white/5 p-3.5 rounded-lg transition-colors hover:bg-white/[0.06] hover:border-white/10 no-underline">
                         <FaGithub className="text-lg text-text-sub flex-shrink-0" />
                         <div className="flex flex-col items-start overflow-hidden">
-                            <span className="text-[11px] text-text-light mb-0.5">GitHub</span>
+                            <span className="text-[0.6875rem] text-text-light mb-0.5">GitHub</span>
                             <span className="text-text-main text-sm truncate w-full">github.com/banbakbulga</span>
                         </div>
                     </a>
@@ -50,7 +50,7 @@ const ContactModal = ({ onClose, setCopyNotification }) => {
                     <div className="flex items-center gap-3 bg-white/[0.03] border border-white/5 p-3.5 rounded-lg transition-colors hover:bg-white/[0.06] hover:border-white/10 cursor-pointer" onClick={copyEmail}>
                         <FaEnvelope className="text-lg text-text-sub flex-shrink-0" />
                         <div className="flex flex-col items-start overflow-hidden">
-                            <span className="text-[11px] text-text-light mb-0.5">이메일</span>
+                            <span className="text-[0.6875rem] text-text-light mb-0.5">이메일</span>
                             <span className="text-text-main text-sm truncate w-full">junh9126@gmail.com</span>
                         </div>
                     </div>
@@ -58,7 +58,7 @@ const ContactModal = ({ onClose, setCopyNotification }) => {
                     <div className="flex items-center gap-3 bg-white/[0.03] border border-white/5 p-3.5 rounded-lg transition-colors hover:bg-white/[0.06] hover:border-white/10 cursor-pointer" onClick={copyPhone}>
                         <FaPhone className="text-lg text-text-sub flex-shrink-0" />
                         <div className="flex flex-col items-start overflow-hidden">
-                            <span className="text-[11px] text-text-light mb-0.5">전화번호</span>
+                            <span className="text-[0.6875rem] text-text-light mb-0.5">전화번호</span>
                             <span className="text-text-main text-sm truncate w-full">010-5766-1639</span>
                         </div>
                     </div>
