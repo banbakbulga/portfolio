@@ -1,7 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaJava, FaPython, FaDatabase, FaNetworkWired, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { SiFastapi, SiMongodb, SiOpenai, SiSpring, SiMysql, SiRedis, SiElasticsearch, SiTailwindcss, SiFlask, SiPostgresql, SiVite } from 'react-icons/si';
+import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 import kakaoImage from '../img/kakao.png';
 import heukbeakImage from '../img/heukbeak.png';
@@ -147,39 +146,6 @@ const Projects = () => {
             featured: true
         }
     ];
-
-    const categoryLabel = {
-        frontend: 'Frontend',
-        backend: 'Backend',
-        ai: 'AI / ML',
-    };
-
-    const getTechIcon = (tech) => {
-        switch (tech) {
-            case "HTML": return <FaHtml5 className="text-[#e34f26] text-2xl" />;
-            case "CSS": return <FaCss3Alt className="text-[#1572b6] text-2xl" />;
-            case "JavaScript": return <FaJs className="text-[#f7df1e] text-2xl" />;
-            case "React": return <FaReact className="text-[#61dafb] text-2xl" />;
-            case "Node.js": return <FaNodeJs className="text-[#339933] text-2xl" />;
-            case "Java": return <FaJava className="text-[#007396] text-2xl" />;
-            case "Spring Boot": return <SiSpring className="text-[#6db33f] text-2xl" />;
-            case "MySQL": return <SiMysql className="text-[#4479a1] text-2xl" />;
-            case "Redis": return <SiRedis className="text-[#dc382d] text-2xl" />;
-            case "Elasticsearch": return <SiElasticsearch className="text-[#005571] text-2xl" />;
-            case "Python": return <FaPython className="text-[#3776ab] text-2xl" />;
-            case "OpenAI": return <SiOpenai className="text-[#412991] text-2xl" />;
-            case "FastAPI": return <SiFastapi className="text-[#009688] text-2xl" />;
-            case "MongoDB": return <SiMongodb className="text-[#47a248] text-2xl" />;
-            case "TailwindCSS": return <SiTailwindcss className="text-[#06b6d4] text-2xl" />;
-            case "Flask": return <SiFlask className="text-black text-2xl" />;
-            case "SQLite": return <FaDatabase className="text-[#003B57] text-2xl" />;
-            case "MCP": return <FaNetworkWired className="text-[#61DAFB] text-2xl" />;
-            case "GitHub Pages": return <FaGithub className="text-white text-2xl" />;
-            case "PostgreSQL": return <SiPostgresql className="text-[#4169E1] text-2xl" />;
-            case "Vite": return <SiVite className="text-[#646CFF] text-2xl" />;
-            default: return <span className="text-white text-sm">{tech}</span>;
-        }
-    };
 
     return (
         <section id="projects" className="py-32 md:py-40 relative overflow-hidden">
